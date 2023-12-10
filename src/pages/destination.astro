@@ -1,0 +1,196 @@
+---
+import Tabs from "../components/Tabs.astro";
+import Layout from "../layouts/Layout.astro";
+import { destinations } from "../pages/data.json";
+
+const destinationsJSON = JSON.stringify(destinations);
+---
+
+<Layout title="Space Tourism">
+    <main>
+        <section class="left-side">
+            <h2 class="title"><span class="number-title">01</span>Pick your destination</h2>
+            <div class="planet-container">
+            </div>
+        </section>
+        <section class="right-side">
+            
+            <Tabs data={JSON.stringify(destinations)} />
+            
+        </section>
+    </main>
+</Layout>
+
+<style>
+    main {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        place-items: center;
+        width: 100%;
+        height: 100%;
+        background-image: url("/assets/destination/background-destination-desktop.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        animation: zoomInOut 20s linear infinite forwards;
+    }
+
+    @keyframes zoomInOut {
+        0% {
+            background-size: 100%;
+        }
+        50% {
+            background-size: 120%;
+        }
+        100% {
+            background-size: 100%;
+        }
+    }
+
+    .right-side {
+        padding-top: 200px;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    .left-side {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 100px;
+        width: 100%;
+        height: 100%;
+        padding-top: 100px;
+    }
+
+    .planet-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: url("./assets/destination/image-moon.png");
+        background-position: center center;
+        background-size: cover;
+        width: 416px;
+        height: 416px;
+        border-radius: 50%;
+        animation: move 30s ease infinite forwards;
+    }
+
+    @keyframes move {
+        0% {
+            transform: translateX(0%) scale(1);
+        }
+
+        15% {
+            transform: translateX(40%) scale(0.5);
+        }
+
+        30% {
+            transform: translate(0%, -15%) scale(0.25);
+        }
+
+        45% {
+            transform: translateX(-40%)  scale(0.5);
+        }
+
+        60% {
+            transform: translateX(0%) scale(1.2);
+        }
+
+        85% {
+            transform: translateX(0%) scale(1);
+        }
+
+        100% {
+            transform: translateX(0%) scale(1);
+        }
+    }
+
+    @media screen and (width <= 1350px) {
+        main {
+            grid-template-columns: 1fr;
+            grid-template-rows: 50% 50%;
+            min-height: 1024px;
+            background-image: url("/assets/destination/background-destination-tablet.jpg");
+        }
+
+        .left-side {
+            gap: 60px;
+            padding-top: 136px;
+        }
+
+        .planet-container {
+            width: 300px;
+            height: 300px;
+        }
+
+        .right-side {
+            padding-top: 53px;
+        }
+    }
+
+    @media screen and (width < 768px) {
+        main {
+            grid-template-rows: 37% 63%;
+            min-height: 850px;
+            background-image: url("/assets/destination/background-destination-mobile.jpg");
+            height: 100%;
+        }
+
+        .left-side {
+            gap: 32px;
+            padding-top: 89px;
+            height: 100%;
+        }
+
+        .planet-container {
+            width: 170px;
+            height: 170px;
+        }
+
+        .right-side {
+            padding-top: 0px;
+            max-height: 514px;
+        }
+    }
+
+</style>
+
+<script define:vars={{ destinationsJSON }}>
+
+    const tabMenuItems = document.querySelectorAll('.info-container > ul > li');
+    const planetContainer = document.getElementsByClassName('planet-container')[0];
+    const tabContentTitle = document.getElementById('tab-content-title');
+    const tabContentDescription = document.getElementById('tab-content-description');
+    const tabContentDistance = document.getElementById('tab-content-distance');
+    const tabContentTravel = document.getElementById('tab-content-travel');
+    const destinations = JSON.parse(destinationsJSON);
+
+    let selectedIndex = 0;
+
+    setDataToTabContent();
+
+    tabMenuItems.forEach((tabMenu) => {
+
+        tabMenu.addEventListener('click', (e) => {
+            selectedIndex = Number.parseInt(tabMenu.getAttribute('data-index'));
+
+            setDataToTabContent();
+        });
+    });
+
+    function setDataToTabContent(){
+        planetContainer.style.backgroundImage = `url('${ destinations[selectedIndex].images.png }')`;
+        tabContentTitle.innerText = destinations[selectedIndex].name;
+        tabContentDescription.innerText = destinations[selectedIndex].description;
+        tabContentDistance.innerText = destinations[selectedIndex].distance;
+        tabContentTravel.innerText = destinations[selectedIndex].travel;
+
+        console.log(destinations[selectedIndex].name);
+    }
+    
+</script>

@@ -1,0 +1,93 @@
+---
+interface Props {
+	title: string;
+	body: string;
+	overtitle: string;
+}
+
+const { overtitle, title, body } = Astro.props;
+---
+
+<article>
+    <span class="overtitle">{ overtitle }</span>
+    <h1>{ title }</h1>
+    <p>{ body }</p>
+</article>
+
+<style>
+    article {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: start;
+        gap: 24px;
+        width: 445px;
+        padding-right: 5px;
+    }
+
+    h1 {
+        color: white;
+        font-family: 'Bellefair', serif;
+        font-size: 150px;
+        font-weight: 400;
+    }
+
+    .overtitle {
+        color: var(--color-text);
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 28px;
+        font-weight: 400;
+        letter-spacing: 4.725px;
+    }
+
+    p {
+        color: var(--color-text);
+        font-family: 'Barlow', sans-serif;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 32px;
+    }
+
+    @media screen and (width <= 1350px) {
+        article {
+            align-items: center;
+            text-align: center;
+            width: 444px;
+            padding-right: 0px;
+        }
+
+        .overtitle {
+            font-size: 20px;
+            letter-spacing: 3.325px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 28px;
+        }
+    }
+
+    @media screen and (width < 768px) {
+        article {
+            padding-top: 112px;
+            width: 327px;
+            height: 276px;
+            gap: 16px;
+        }
+
+        h1 {
+            font-size: 80px;
+        }
+
+        .overtitle {
+            font-size: 16px;
+            letter-spacing: 2.7px;
+        }
+
+        p {
+            font-size: 15px;
+            line-height: 25px;
+        }
+    }
+
+</style>

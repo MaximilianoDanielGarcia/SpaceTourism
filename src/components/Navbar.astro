@@ -1,0 +1,239 @@
+---
+const currentPath = Astro.url.pathname;
+---
+
+<nav>
+    <div class="logo-container">
+        <a href="/"><img src="/assets/shared/logo.svg" alt="" /></a>
+        <span class="line"></span>
+    </div>
+    <div class="mobile-buttons">
+        <button id="icon-hamburger">
+            <img src="/assets/shared/icon-hamburger.svg" alt="">
+        </button>
+        <button id="icon-close">
+            <img src="/assets/shared/icon-close.svg" alt="">
+        </button>
+    </div>
+    <ul id="menu">
+        <li class={currentPath === '/' ? 'active' : ''}><a href="/"><span>00</span>Home</a></li>
+        <li class={currentPath === '/destination' ? 'active' : ''}><a href="/destination"><span>01</span>Destination</a></li>
+        <li class={currentPath === '/crew' ? 'active' : ''}><a href="/crew"><span>02</span>Crew</a></li>
+        <li class={currentPath === '/technology' ? 'active' : ''}><a href="/technology"><span>03</span>Technology</a></li>
+    </ul>
+</nav>
+
+<style>
+    nav {
+        display: grid;
+        grid-template-columns: 40% 60%;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 96px;
+        position: relative;
+        overflow-x: clip;
+    }
+
+    .mobile-buttons {
+        display: none;
+    }
+
+    ul {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        padding-left: 20%;
+        gap: 48px;
+        list-style-type: none;
+        background: rgba(255, 255, 255, 0.04);
+        backdrop-filter: blur(40px);
+        width: 100%;
+        height: 100%;
+
+        & > li {
+            display: grid;
+            place-items: center;
+            border-bottom: 3px solid transparent;
+            height: 100%;
+        }
+
+        & > li:hover {
+            border-bottom: 3px solid white;
+            opacity: 0.6;
+        }
+
+        & > li.active {
+            border-bottom: 3px solid white;
+
+            & > a {
+                opacity: 1;
+            }
+        }
+
+        & > li > a {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            text-decoration: none;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 2.7px;
+            font-weight: 400;
+            font-size: 16px;
+            opacity: 0.6;
+            height: 100%;
+        }
+
+        & > li > a:hover {
+            opacity: 1;
+        }
+
+        & > li > a > span {
+            font-weight: 700;
+        }
+    }
+
+    .logo-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 200px;
+        padding-left: 20%;
+    }
+
+    .line {
+        position: absolute;
+        width: 65%;
+        height: 1px;
+        background: white;
+        opacity: 0.25;
+        right: -40px;
+        z-index: 2;
+    }
+
+    @media screen and (width <= 1350px) {
+
+        nav {
+            min-width: 450px;
+        }
+
+        ul {
+            gap: 37px;
+            justify-content: center;
+            padding-inline: 48px;
+
+            & > li > a {
+                font-size: 14px;
+            }
+
+            & > li > a > span {
+                display: none;
+            }
+        }
+
+        .logo-container {
+            gap: 231px;
+            padding-left: 10%;
+        }
+
+        .line {
+            display: none;
+        }
+    }
+
+    @media screen and (width < 768px) {
+
+        nav {
+            min-width: 100%;
+        }
+
+        .mobile-buttons {
+            display: block;
+            position: absolute;
+            z-index: 9999;
+            top: 40px;
+            right: 5%;
+
+            & > button {
+                background: transparent;
+                border: none;
+            }
+
+            & > #icon-close {
+                display: none;
+            }
+        }
+
+        ul {
+            position: absolute;
+            top: 0;
+            right: 0;
+            flex-direction: column;
+            align-items: start;
+            justify-content: start;
+            padding-left: 0%;
+            padding-top: 25%;
+            gap: 32px;
+            width: 254px;
+            transform: translateX(254px);
+            height: 100vh;
+            min-height: 667px;
+            transition: transform .5s ease;
+
+            & > li {
+                border-bottom: none;
+                border-left: 3px solid transparent;
+                height: auto;
+                width: 150px;
+                padding-left: 32px;
+            }
+
+            & > li:hover {
+                border-bottom: none;
+                border-left: 3px solid white;
+            }
+
+            & > li.active {
+                border-bottom: none;
+                border-left: 3px solid white;
+            }
+
+            & > li > a {
+                width: 100%;
+                gap: 14px;
+                font-size: 16px;
+            }
+
+            & > li > a > span {
+                display: block;
+            }
+        }
+    }
+</style>
+
+<script>
+ 
+    const menu = document.getElementById('menu');
+
+    
+    const iconHamburger = document.getElementById('icon-hamburger');
+    const iconClose = document.getElementById('icon-close');
+
+    iconHamburger.addEventListener('click', (e) => {
+
+        iconClose.style.display = 'block';
+        iconHamburger.style.display = 'none';
+
+        menu.style.transform = 'translateX(0px)';
+    });
+
+    iconClose.addEventListener('click', (e) => {
+        
+        iconHamburger.style.display = 'block';
+        iconClose.style.display = 'none';
+
+        menu.style.transform = 'translateX(254px)';
+    });
+
+</script>

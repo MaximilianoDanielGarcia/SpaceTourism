@@ -1,0 +1,83 @@
+---
+interface Props {
+	data: string;
+}
+
+const { data } = Astro.props;
+
+const dataObj = JSON.parse(data);
+
+---
+
+<ul>
+    {dataObj && 
+     dataObj.map((item, index) => (
+        <li class:list={['circle-number', {active: index === 0}]} data-index={index}>{index + 1}</li>
+     )) }
+</ul>
+
+<style>
+
+    ul {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 80px;
+        height: 304px;
+    }
+
+    .circle-number {
+        display: grid;
+        place-items: center;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: transparent;
+        cursor: pointer;
+        color: white;
+        border: 1px solid rgba(355, 255, 255, 0.25);
+        font-family: 'Bellefair';
+        font-size: 32px;
+        font-weight: 400;
+    }
+
+    .circle-number:hover {
+        border: 1px solid white;
+    }
+
+    .active {
+        background: white;
+        color: #0B0D17;
+    }
+
+    @media screen and (width <= 1350px) {
+        
+        ul {
+            flex-direction: row;
+            width: 210px;
+            height: 60px;
+        }
+
+        .circle-number {
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+        }
+    }
+
+    @media screen and (width < 768px) {
+        
+        ul {
+            flex-direction: row;
+            width: 152px;
+            height: 40px;
+        }
+
+        .circle-number {
+            width: 40px;
+            height: 40px;
+            font-size: 16px;
+        }
+    }
+
+</style>

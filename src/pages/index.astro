@@ -1,0 +1,126 @@
+---
+import Article from '../components/Article.astro';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Space Tourism">
+	<main>
+		<Article title='SPACE' overtitle='SO, YOU WANT TO TRAVEL TO' body='Let’s face it; if you want to go to space, you might as well genuinely go to outer space and not hover kind of on the edge of it. Well sit back, and relax because we’ll give you a truly out of this world experience!'/>
+		<div class="explore-container">
+			<a id="btn-explore" href="/destination">Explore</a>
+		</div>
+	</main>
+</Layout>
+
+<style>
+
+	main {
+		display: grid;
+		grid-template-columns: 50% 50%;
+		place-items: center;
+		width: 100%;
+		height: 100%;
+		background-image: url('/assets/home/background-home-desktop.jpg');
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center center;
+		animation: zoomInOut 20s linear infinite forwards;
+		z-index: 1;
+	}
+
+	@keyframes zoomInOut {
+		0% {
+			background-size: 100%;
+		}
+		50% {
+			background-size: 120%;
+		}
+		100% {
+			background-size: 100%;
+		}
+	}
+
+	.explore-container {
+		display: grid;
+		place-items: center;
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
+	#btn-explore {
+		position: absolute;
+		display: grid;
+		place-items: center;
+		text-decoration: none;
+		top: 50%;
+		left: 60%;
+		transform: translateX(-50%);
+		width: 274px;
+		height: 274px;
+		border-radius: 50%;
+		background-image: url('image.jpg');
+		color: var(--color-text);
+		text-shadow: 5px 5px 5px var(--dark-text);
+		font-family: 'Bellefair', sans-serif;
+		font-size: 32px;
+		font-weight: 400;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		border: none;
+		z-index: 2;
+		cursor: pointer;
+		box-shadow: 10px 10px 60px rgba(0, 0, 0, 0.5) inset, -10px -10px 20px rgba(0, 0, 0, 1) inset;
+		animation: spin 20s linear infinite;
+	}
+
+	#btn-explore:hover {
+		transition: all 0.2s ease;
+		box-shadow: 0px 0px 100px 50px rgba(31, 109, 225, 0.7), 10px 10px 60px rgba(0, 0, 0, 0.5) inset, -10px -10px 20px rgba(0, 0, 0, 1) inset;
+	}
+
+	@keyframes spin {
+		to {
+			background-position: -750px 0;
+		}
+	}
+
+	@media screen and (width <= 1350px) {
+
+		main {
+			display: grid;
+			grid-template-columns: 1fr;
+			grid-template-rows: 50% 50%;
+			padding-top: 202px;
+			place-items: center;
+			min-height: 1024px;
+			background-image: url('/assets/home/background-home-tablet.jpg');
+			z-index: 1;
+		}
+
+		#btn-explore {
+			width: 242px;
+			height: 242px;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
+
+	@media screen and (width < 768px) {
+		main {
+			padding-top: 0px;
+			min-height: 667px;
+			height: 667px;
+			grid-template-rows: 333.5px 333.5px;
+			background-image: url('/assets/home/background-home-mobile.jpg');			
+		}
+
+		#btn-explore {
+			width: 150px;
+			height: 150px;
+			font-size: 20px;
+			letter-spacing: 1.25px;
+		}
+	}
+	
+</style>

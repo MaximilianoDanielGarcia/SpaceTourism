@@ -1,0 +1,62 @@
+---
+interface Props {
+	data: string;
+}
+
+const { data } = Astro.props;
+
+const dataObj = JSON.parse(data);
+
+---
+
+<ul>
+    {dataObj && 
+     dataObj.map((item, index) => (
+        <li class:list={['dot-item', {active: index === 0}]} data-index={index} data-value={item.name}></li>
+     )) }
+</ul>
+
+<style>
+
+    ul {
+        display: flex;
+        justify-content: space-between;
+        width: 132px;
+        height: 15px;
+        list-style-type: none;
+    }
+
+    .dot-item {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background: white;
+        opacity: 0.5;
+        cursor: pointer;
+    }
+
+    .dot-item:hover {
+        opacity: 0.75;
+    }
+
+    .active {
+        opacity: 1;
+    }
+
+    @media screen and (width <= 1350px) {
+        ul {
+            width: 88px;
+            height: 10px;
+        }
+
+        .dot-item {
+            width: 10px;
+            height: 10px;
+        }
+    }
+
+</style>
+
+<script>
+
+</script>

@@ -1,0 +1,116 @@
+---
+import { ViewTransitions } from "astro:transitions";
+import Navbar from "../components/Navbar.astro";
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link href="https://fonts.googleapis.com/css2?family=Barlow&family=Bellefair&display=swap" rel="stylesheet">
+		<ViewTransitions />
+	</head>
+	<body>
+		<header>
+			<Navbar />
+		</header>
+		<slot />
+	</body>
+</html>
+<style is:global>
+	:root {
+		--color-text: hsl(231, 77%, 90%);
+		--dark-text: hsl(230, 35%, 7%);
+	}
+	html {
+		background: #13151a;
+		font-family: 'Barlow Condensed', sans-serif;
+	}
+	
+	* {
+		padding: 0;
+		margin: 0;
+		box-sizing: border-box;
+	}
+
+	body {
+		display: grid;
+		place-items: center;
+		min-height: 100vh;
+	}
+
+	header {
+		position: absolute;
+		width: 100%;
+		top: 40px;
+		z-index: 999;
+	}
+
+	.title {
+		color: white;
+		font-family: 'Barlow Condensed';
+		font-size: 28px;
+		font-weight: 400;
+		letter-spacing: 4.725px;
+		text-transform: uppercase;
+		width: 460px;
+	}
+
+     .title > .number-title {
+		opacity: 0.25;
+		font-weight: 700;
+		padding-right: 24px;
+	}
+
+	@media screen and (width <= 1350px) {
+		
+		header {
+			top: 0;
+		}
+
+		.title {
+			width: 100%;
+			padding-left: 5%;
+			font-size: 20px;
+			letter-spacing: 3.325px;
+		}
+	}
+
+	@media screen and (width < 768px) {
+		.title {
+			padding-left: 0%;
+			font-size: 16px;
+			letter-spacing: 2.7px;
+			text-align: center;
+		}
+	}
+
+</style>
+
+<script>
+	const links = document.querySelectorAll('a');
+
+	links.forEach((link) => {
+		link.addEventListener('click', (e) => {
+			e.stopPropagation();
+		});
+	});
+</script>

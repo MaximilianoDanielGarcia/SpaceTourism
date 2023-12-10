@@ -1,0 +1,326 @@
+---
+interface Props {
+    src: string;
+}
+
+const { src } = Astro.props;
+---
+
+<div id="design-comparator" class="design-comparator">
+    <div class="container-design">
+        <img class="desktop-design" src={src} alt="Desktop design" />
+        <div class="draggable">
+            <div class="content">
+                <span id="btn-draggable"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="design-menu">
+    <label class="container">
+        <input id="turn-on-off" type="checkbox" checked />
+        <div class="checkmark">
+            <svg
+                xml:space="preserve"
+                viewBox="0 0 49.548 49.549"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlns="http://www.w3.org/2000/svg"
+                id="Capa_1"
+                version="1.1"
+            >
+                <g>
+                    <g>
+                        <g>
+                            <path
+                                d="M30.203,4.387v4.385c7.653,2.332,13.238,9.451,13.238,17.857c0,10.293-8.373,18.667-18.667,18.667
+                      S6.106,36.922,6.106,26.629c0-8.405,5.585-15.525,13.238-17.857V4.387C9.323,6.835,1.855,15.866,1.855,26.629
+                      c0,12.639,10.281,22.92,22.919,22.92s22.92-10.281,22.92-22.92C47.694,15.865,40.224,6.835,30.203,4.387z"
+                            ></path>
+                        </g>
+                        <g>
+                            <path
+                                d="M24.776,27.225c-1.41,0-2.554-1.145-2.554-2.555V2.554c0-1.41,1.144-2.554,2.554-2.554c1.41,0,2.554,1.144,2.554,2.554
+                      V24.67C27.33,26.08,26.186,27.225,24.776,27.225z"
+                            ></path>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </div>
+    </label>
+</div>
+
+<style>
+    .design-comparator {
+        position: absolute;
+        display: grid;
+        place-items: center;
+    }
+
+    .container-design {
+        position: relative;
+        display: grid;
+        place-items: center;
+    }
+
+    .desktop-design {
+        display: block;
+        width: 1440px;
+        clip-path: inset(0 0 0 50%);
+        z-index: 2;
+    }
+
+    .draggable {
+        position: absolute;
+        width: 1px;
+        height: 100%;
+        background: red;
+        z-index: 3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: ew-resize;
+        left: 50%;
+
+        & > .content {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+    }
+
+    #btn-draggable {
+        position: absolute;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: rgb(0, 255, 0);
+        box-shadow:
+            2px 2px 10px inset rgb(15, 89, 15),
+            -2px -2px 10px inset rgb(219, 255, 219);
+        border-radius: 50%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    #btn-draggable::before {
+        content: "";
+        width: 5px;
+        height: px;
+        border: 5px solid transparent;
+        border-right: 5px solid white;
+    }
+
+    #btn-draggable::after {
+        content: "";
+        width: 5px;
+        height: px;
+        border: 5px solid transparent;
+        border-left: 5px solid white;
+    }
+
+    .design-menu {
+        display: grid;
+        place-items: center;
+        width: 80px;
+        height: 60px;
+        background: #212121;
+        border-radius: 10px 0 0 10px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        box-shadow: 6px 6px 10px #000000;
+    }
+
+    /* TURN ON/OFF BUTTON */
+
+    /* Hide the default checkbox */
+    .container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    .container {
+        display: block;
+        position: relative;
+        cursor: pointer;
+        font-size: 20px;
+        user-select: none;
+    }
+
+    /* Create a custom checkbox */
+    .checkmark {
+        position: relative;
+        height: 30px;
+        width: 30px;
+        border-radius: 10em;
+        background-color: #212121;
+        transition: 0.3s;
+        box-shadow:
+            6px 6px 10px #000000,
+            -6px -6px 10px #3c3c3c;
+    }
+
+    .checkmark svg {
+        width: 15px;
+        height: 15px;
+        margin-top: 7px;
+        margin-left: 8px;
+        fill: #264d39;
+        transition: 0.2s;
+    }
+
+    .checkmark:active {
+        box-shadow:
+            2px 2px 3px #000000,
+            -2px -2px 3px #3c3c3c;
+    }
+
+    /* When the checkbox is checked */
+    .container input:checked ~ .checkmark {
+        box-shadow:
+            4px 4px 6px #000000,
+            -4px -4px 6px #3c3c3c;
+    }
+
+    .container input:checked ~ .checkmark svg {
+        fill: #00ff7b;
+    }
+
+    .container input:checked ~ .checkmark:active {
+        box-shadow:
+            2px 2px 3px #000000,
+            -2px -2px 3px #3c3c3c;
+    }
+</style>
+
+<script is:inline>
+    const d = document.getElementsByClassName("draggable");
+    const btnDraggable = document.getElementById("btn-draggable");
+    const desktopImg = document.getElementsByClassName("desktop-design")[0];
+
+    for (let i = 0; i < d.length; i++) {
+        d[i].style.position = "absolute";
+    }
+
+    function filter(e) {
+        let target = e.target.parentElement;
+
+        if (!target.classList.contains("draggable")) {
+            if (!target.parentElement.classList.contains("draggable")) {
+                return;
+            }
+
+            target = target.parentElement;
+        }
+
+        target.moving = true;
+
+        //NOTICE THIS 👇 Check if Mouse events exist on users' device
+        if (e.clientX || e.clientY) {
+            target.oldX = e.clientX; // If they exist then use Mouse input
+            target.oldY = e.clientY;
+        } else {
+            target.oldX = e.touches[0].clientX; // Otherwise use touch input
+            target.oldY = e.touches[0].clientY;
+        }
+        //NOTICE THIS 👆 Since there can be multiple touches, you need to mention which touch to look for, we are using the first touch only in this case
+
+        target.oldLeft = window.getComputedStyle(target).getPropertyValue("left").split("px")[0] * 1;
+        target.oldTop = window.getComputedStyle(target).getPropertyValue("top").split("px")[0] * 1;
+
+        document.onmousemove = dr;
+        document.ontouchmove = dr;
+
+        function dr(event) {
+            event.preventDefault();
+
+            if (!target.moving) {
+                return;
+            }
+            //NOTICE THIS 👇
+            if (event.clientX) {
+                target.distX = event.clientX - target.oldX;
+                target.distY = event.clientY - target.oldY;
+            } else {
+                target.distX = event.touches[0].clientX - target.oldX;
+                target.distY = event.touches[0].clientY - target.oldY;
+            }
+            //NOTICE THIS 👆
+
+            if (isCtrlKeyDown) {
+                target.style.top = target.oldTop + target.distY + "px";
+                desktopImg.style.clipPath =
+                    "inset(" + target.style.top + " 0 0 0)";
+            } else {
+                target.style.left = target.oldLeft + target.distX + "px";
+                desktopImg.style.clipPath =
+                    "inset(0 0 0 " + target.style.left + ")";
+            }
+        }
+
+        function endDrag() {
+            target.moving = false;
+        }
+
+        document.onmouseup = endDrag;
+        document.ontouchend = endDrag;
+    }
+
+    document.onmousedown = filter;
+    document.ontouchstart = filter;
+
+    let isCtrlKeyDown = false;
+
+    window.addEventListener("keydown", (event) => {
+        if (event.ctrlKey) {
+            isCtrlKeyDown = true;
+
+            if (!event.repeat) {
+                desktopImg.style.clipPath = "inset(50% 0 0 0)";
+                d[0].style.height = "1px";
+                d[0].style.width = "100%";
+                d[0].style.top = "50%";
+                d[0].style.left = "50%";
+                d[0].style.transform = "translate(-50%, -50%)";
+                d[0].style.cursor = "ns-resize";
+
+                btnDraggable.style.transform =
+                    "translate(-50%, -50%) rotate(90deg)";
+            }
+        }
+    });
+
+    window.addEventListener("keyup", (event) => {
+        isCtrlKeyDown = false;
+
+        desktopImg.style.clipPath = "inset(0 0 0 50%)";
+        d[0].style.height = "100%";
+        d[0].style.width = "1px";
+        d[0].style.left = "50%";
+        d[0].style.top = "50%";
+        d[0].style.transform = "translate(-50%, -50%)";
+        d[0].style.cursor = "ew-resize";
+
+        btnDraggable.style.transform = "translate(-50%, -50%) rotate(0deg)";
+    });
+
+    const turnOnOff = document.getElementById("turn-on-off");
+    const designContainer = document.getElementById("design-comparator");
+
+    turnOnOff.addEventListener("click", (e) => {
+        if (e.target.checked) {
+            designContainer.style.display = "grid";
+        } else {
+            designContainer.style.display = "none";
+        }
+    });
+</script>

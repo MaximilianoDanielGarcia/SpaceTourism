@@ -1,0 +1,139 @@
+---
+import Tab from "./Tab.astro";
+
+interface Props {
+    data: string;
+}
+
+const { data } = Astro.props;
+
+const destinations = JSON.parse(data);
+---
+
+<div class="info-container">
+    <ul>
+        {
+            destinations &&
+                destinations.map((destination, index) => (
+                    <li
+                        class:list={[{ active: index === 0 }]}
+                        data-index={index}
+                    >
+                        {destination.name}
+                    </li>
+                ))
+        }
+    </ul>
+
+    {
+        destinations && (
+            <Tab
+                name={destinations[0].name}
+                description={destinations[0].description}
+                distance={destinations[0].distance}
+                travel={destinations[0].travel}
+            />
+        )
+    }
+</div>
+
+<style>
+    .info-container {
+        display: flex;
+        flex-direction: column;
+        gap: 37px;
+        width: 445px;
+        height: 472px;
+    }
+
+    ul {
+        display: flex;
+        justify-content: space-between;
+        min-height: 34px;
+        width: 285px;
+        color: var(--color-text);
+        list-style-type: none;
+    }
+
+    ul > li {
+        text-transform: uppercase;
+        font-family: "Barlow Condensed", sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: 2.7px;
+        cursor: pointer;
+        border-bottom: 3px solid transparent;
+    }
+
+    ul > li:hover {
+        border-bottom: 3px solid white;
+        opacity: 0.6;
+    }
+
+    ul > li.active {
+        border-bottom: 3px solid white;
+
+        & > a {
+            opacity: 1;
+        }
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    @media screen and (width <= 1350px) {
+        .info-container {
+            gap: 32px;
+            width: 573px;
+            height: 389px;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    @media screen and (width < 768px) {
+        .info-container {
+            gap: 20px;
+            width: 327px;
+            height: 514px;
+        }
+
+        ul {
+            min-height: 28px;
+            width: 238px;
+        }
+
+        ul > li {
+            font-size: 14px;
+            letter-spacing: 2.362px;
+        }
+    }
+
+</style>
+<script is:inline>
+    const menuItems = document.querySelectorAll(".info-container > ul > li");
+
+    function init() {
+        menuItems.forEach((menuItem) => {
+            menuItem.addEventListener("click", (e) => {
+                removeActive();
+                menuItem.setAttribute("data-active", "true");
+                menuItem.classList.add("active");
+
+                selectedIndex = Number.parseInt(
+                    menuItem.getAttribute("data-index"),
+                );
+            });
+        });
+    }
+
+    function removeActive() {
+        menuItems.forEach((menuItem) => {
+            menuItem.setAttribute("data-active", "false");
+            menuItem.classList.remove("active");
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", init, false);
+</script>

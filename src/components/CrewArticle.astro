@@ -1,0 +1,116 @@
+---
+interface Props {
+	title: string;
+	body: string;
+	overtitle: string;
+}
+
+const { overtitle, title, body } = Astro.props;
+---
+
+<article>
+    <div>
+        <p id="crew-overtitle" class="overtitle">{ overtitle }</p>
+        <h2 id="crew-title">{ title }</h2>
+    </div>
+    
+    <p id="crew-body">{ body }</p>
+</article>
+
+<style>
+    article {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: start;
+        gap: 24px;
+        width: 460px;
+        height: 303px;
+        padding-right: 5px;
+    }
+
+    article > div {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    h2 {
+        color: white;
+        font-family: 'Bellefair';
+        font-size: 56px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-wrap: nowrap;
+    }
+
+    .overtitle {
+        color: white;
+        font-family: 'Bellefair';
+        font-size: 32px;
+        font-weight: 400;
+        text-transform: uppercase;
+        opacity: 0.5;
+    }
+
+    article > p {
+        height: 160px;
+        color: var(--color-text);
+        font-family: 'Barlow';
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 32px;
+    }
+
+    @media screen and (width <= 1350px) {
+       
+        article {
+            align-items: center;
+            text-align: center;
+            gap: 16px;
+            height: 182px;
+            padding-right: 0px;
+        }
+
+        article > div {
+            gap: 8px;
+        }
+
+        h2 {
+            font-size: 40px;
+        }
+
+        .overtitle {
+            font-size: 24px;
+        }
+
+        article > p {
+            height: 84px;
+            font-size: 16px;
+            line-height: 28px;
+        }
+    }
+
+    @media screen and (width < 768px) {
+        article {
+            justify-content: start;
+            width: 327px;
+            height: 170px;
+        }
+
+        h2 {
+            font-size: 24px;
+        }
+
+        .overtitle {
+            font-size: 16px;
+        }
+
+        article > p {
+            height: 150px;
+            font-size: 15px;
+            line-height: 25px;
+        }
+    }
+
+</style>

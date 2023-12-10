@@ -1,0 +1,115 @@
+---
+interface Props {
+	title: string;
+	body: string;
+	overtitle: string;
+}
+
+const { overtitle, title, body } = Astro.props;
+---
+
+<article>
+    <div>
+        <p id="tech-overtitle" class="overtitle">{ overtitle }</p>
+        <h2 id="tech-title">{ title }</h2>
+    </div>
+    
+    <p id="tech-body">{ body }</p>
+</article>
+
+<style>
+    article {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        gap: 17px;
+        width: 444px;
+        height: 303px;
+    }
+
+    article > div {
+        display: flex;
+        flex-direction: column;
+        gap: 11px;
+    }
+
+    h2 {
+        color: white;
+        font-family: 'Bellefair';
+        font-size: 56px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-wrap: nowrap;
+    }
+
+    .overtitle {
+        color: var(--color-text);
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: 2.7px;
+        text-transform: uppercase;
+    }
+
+    article > p {
+        height: 192px;
+        color: var(--color-text);
+        font-family: 'Barlow';
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 32px;
+    }
+
+    @media screen and (width <= 1350px) {
+        article {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            gap: 16px;
+            width: 458px;
+            height: 237px;
+        }
+
+        article > div {
+            gap: 16px;
+        }
+
+        h2 {
+            font-size: 40px;
+        }
+
+        article > p {
+            height: 140px;
+            font-size: 16px;
+            line-height: 28px;
+        }
+    }
+
+    @media screen and (width < 768px) {
+        article {
+            width: 327px;
+            height: 237px;
+        }
+
+        article > div {
+            gap: 9px;
+        }
+
+        .overtitle {
+            font-size: 14px;
+            letter-spacing: 2.362px;
+        }
+
+        h2 {
+            font-size: 24px;
+        }
+
+        article > p {
+            height: 150px;
+            font-size: 15px;
+            line-height: 25px;
+        }
+    }
+
+</style>
