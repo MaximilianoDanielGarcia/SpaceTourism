@@ -1,4 +1,14 @@
-# Astro Starter Kit: Basics
+# Space Tourism Website
+
+- ![Live site here](https://master--whimsical-cocada-999a35.netlify.app/)
+
+## Screenshots
+
+![Desktop screenshot](/public/screenshot-desktop.jpeg)
+
+![Tablet screenshot](/public/screenshot-tablet.jpeg)
+
+## Astro Starter Kit: Basics
 
 ```sh
 npm create astro@latest -- --template basics
