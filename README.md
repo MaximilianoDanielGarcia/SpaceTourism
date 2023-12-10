@@ -1,6 +1,6 @@
 # Space Tourism Website
 
-- ![Live site here](https://master--whimsical-cocada-999a35.netlify.app/)
+- [Live site here](https://master--whimsical-cocada-999a35.netlify.app/)
 
 ## Screenshots
 
