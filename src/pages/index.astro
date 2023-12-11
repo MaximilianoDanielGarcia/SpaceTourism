@@ -114,8 +114,9 @@ import Layout from '../layouts/Layout.astro';
 			padding-top: 0px;
 			padding-left: 0px;
 			min-height: 667px;
-			height: 667px;
+			height: 100%;
 			grid-template-rows: 333.5px 333.5px;
+			padding-top: 88px;
 			background-image: url('/assets/home/background-home-mobile.jpg');			
 		}
 
@@ -124,6 +125,18 @@ import Layout from '../layouts/Layout.astro';
 			height: 150px;
 			font-size: 20px;
 			letter-spacing: 1.25px;
+		}
+
+		@keyframes zoomInOut {
+			0% {
+				background-size: 120%;
+			}
+			50% {
+				background-size: 140%;
+			}
+			100% {
+				background-size: 120%;
+			}
 		}
 	}
 	
